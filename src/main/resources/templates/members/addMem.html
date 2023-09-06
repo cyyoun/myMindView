@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+</head>
+<body>
+    <h1>회원 가입</h1>
+    <form action="http://localhost/mem/add">
+        <p>
+            <label for="accnt_id">아이디 : </label>
+            <input id="accnt_id" type="text" name="accnt_id"> <button>중복 확인</button>
+        </p>    
+        <p>
+            <label for="accnt_pw">비밀번호 : </label>
+            <input id="accnt_pw" type="password" name="accnt_pw">
+        </p>
+        <p>
+            <label for="pwChk">비밀번호 확인 : </label>
+            <input if="pwChk" type="password">
+        </p>
+        <p>
+            <label for="name">이름 : </label>
+            <input if="name" type="text" name="name">
+        </p>
+        <p>
+            <label for="birth">생년월일 : </label>
+            <input if="birth" type="text" name="birth">
+        </p>
+        <p>성별 : 
+            <p>
+            <label for="gender_m">남자 </label>
+            <input id="gender_m" type="radio" name="gender" value="m">
+
+            <label for="gender_w">여자 </label> 
+            <input id="gender_w" type="radio" name="gender" value="w">
+
+            <label for="gender_n">선택 안함 </label> 
+            <input id="gender_n" type="radio" name="gender" value="n">
+            </p>
+        </p>
+        <p>
+            <label for="phone">휴대전화번호 : </label>
+            <input id="phone" type="text" name="phone"> </p>
+        
+        <button type="submit">가입 하기</button>
+    </form>
+    <button type="button" onclick="location.href='login.html'">취소</button>
+
+</body>
+</html>
