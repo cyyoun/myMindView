@@ -3,7 +3,6 @@ package cyng.mmview.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +17,9 @@ public class Posts {
     private boolean secret;
     private long hits;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "members_id")
+    private Members members;
 
     @OneToMany(mappedBy = "post")
     private List<Photo> photos = new ArrayList<>();

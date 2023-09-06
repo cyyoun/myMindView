@@ -11,7 +11,7 @@ public class Photo {
     @Column(name = "photo_id")
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Posts post; //외래키
 
