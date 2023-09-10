@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>회원 가입</h1>
-    <form action="http://localhost/mem/add">
+    <form method="post" action="http://localhost/mem/add">
         <p>
             <label for="accnt_id">아이디 : </label>
             <input id="accnt_id" type="text" name="accnt_id"> <button>중복 확인</button>
@@ -17,7 +17,7 @@
             <input id="accnt_pw" type="password" name="accnt_pw">
         </p>
         <p>
-            <label for="pwChk">비밀번호 확인 : </label>
+            <label for="chk_pw">비밀번호 확인 : </label>
             <input if="pwChk" type="password">
         </p>
         <p>

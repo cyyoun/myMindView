@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>글 작성하기</title>
+</head>
+<body>
+    <h1>글 작성하기</h1>
+    
+    <form action="http://localhost/mem/addPost">
+        <p>
+            <input type="text" id="header" name="header" placeholder="제목을 입력해주세요.">
+        </p>
+        <p>
+            <textarea id="content" name="content"  placeholder="내용을 입력해주세요." rows="20"></textarea>
+        </p>        
+        <p>
+            <button type="submit">완료</button>
+            <button type="button" onclick="location.href='posts.html'">취소</button>
+        </p>
+    </form>
+</body>
+</html>

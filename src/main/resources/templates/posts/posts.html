@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
 </head>
+
 <body>
     <h1>게시판</h1>
-    <button type="button" onclick="location.href='../members/login.html'">로그아웃</button>
-
-    <table>
-        <tr>        
-            <th>순번</th>
-            <th>제목</th>
-            <th>이미지</th>
-            <th>작성자</th>
-            <th>게시일</th>
-            <th>조회수</th>
-            <th>좋아요</th>
-        </tr>
-        <tr>
-            <td><a href="post.html">1</a></td>
-            <td><a href="post.html">테스트 성공적</a></td>
-            <td>🤍</td>
-            <td>cyyoun</td>
-            <td>2023-08-02</td>
-            <td>1004</td>
-            <td>334</td>
-        </tr>
-    </table>
+    <p>
+        <button type="button" onclick="location.href='../members/login.html'">로그아웃</button>
+        <button type="button" onclick="location.href=''">마이페이지</button>        
+    </p>
+    <form method="get" action="http://localhost/posts">
+        <p>
+            <label for="search"> 조회 : </label>
+            <input type="text" id="search" name="search">
+            <button type="submit">검색</button>
+        </p>
+        <p><button type="button" onclick="location.href='addPost.html'">글 작성</button></p>
+    </form>
+    
+    <p>
+        <table>
+            <tr>
+                <th>날짜</th>                
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>조회</th>
+                <th>좋아요</th>
+            </tr>
+            <tr>
+                <td>2023-08-02</td>
+                <td><a href="post.html">테스트 성공적</a></td>
+                <td>cyy</td>
+                <td>1004</td>
+                <td>334</td>
+            </tr>
+        </table>
+    </p>
+    <!--페이징-->
+    
 </body>
 </html>

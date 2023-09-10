@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>mmview </title>
+</head>
+<body>
+    <!--저장된 제목 및 내용-->
+    <table>
+        <tr>
+            <td>테스트 성공적</td>
+            <td>조회 178</td>            
+        </tr>
+            <td>cyy</td>            
+            <td>2023.09.10 17:30</td>
+        <tr>
+
+        </tr>
+    </table>        
+
+    <p><textarea id="content" rows="20" disabled>hihi</textarea></p>
+
+    <!--좋아요-->
+    <p>
+        <img src="/">
+        <button type="button">좋아요</button>
+    </p>
+
+    <!--댓글 기능-->
+    <form method="post" action="">
+        <p>댓글</p>
+        <p>
+            <div>
+                <div><input type="text" value="cyy" disabled></div>
+                <div><textarea placeholder="욕설 및 악플은 삭제될 수 있습니다."></textarea></div>
+                <button type="submit">등록</button>
+            </div>
+        </p>
+       
+    </form>
+    
+    <!--댓글-->
+    <ul>
+        <!--(+) 댓글 추천 기능-->
+        <li>
+            <div>cyy</div>
+            <div>2023.09.10.17:39</div>
+            <div>너무 좋네요!</div>
+        </li>
+        <li>
+            <div>jdc</div>
+            <div>2023.09.10.17:45</div>
+            <div>좋은 정보 감사합니다 :)</div>
+        </li>
+    </ul>
+    
+    <p>
+        <button type="button" onclick="location.href='addPost.html'">글 작성</button>
+        <button type="button" onclick="location.href='posts.html'">목록</button>
+        <button type="button" onclick="location.href='posts.html'">글 삭제</button>
+    </p>
+</body>
+</html>
