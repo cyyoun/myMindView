@@ -1,5 +1,6 @@
 package cyng.mmview.domain;
 
+import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Data
 public class Members {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "members_id")
@@ -21,7 +23,7 @@ public class Members {
     private String name;
     private String phone;
     private String birth;
-    private String gender;
+    private Gender gender;
 
     @OneToMany(mappedBy = "members")
     private List<Posts> posts = new ArrayList<>();
@@ -29,7 +31,7 @@ public class Members {
     public Members() {
     }
 
-    public Members(String accntId, String accntPw, String name, String phone, String birth, String gender) {
+    public Members(String accntId, String accntPw, String name, String phone, String birth, Gender gender) {
         this.accntId = accntId;
         this.accntPw = accntPw;
         this.name = name;

@@ -1,5 +1,6 @@
 package cyng.mmview.repository;
 
+import cyng.mmview.domain.Gender;
 import cyng.mmview.domain.Members;
 import cyng.mmview.service.MembersService;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class MembersRepositoryTest {
     @Rollback(value = false)
     public void newMemberSave() {
         //given
-        Members members = new Members("cyyoun123", "1234", "cyy", "010-1234-1234", "1234-12-08", "w");
+        Members members = new Members("cyyoun123", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN);
 
         //when
         membersService.join(members);
@@ -43,7 +44,7 @@ public class MembersRepositoryTest {
     @Rollback(value = false)
     public void findId() {
         //given
-        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", "w");
+        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN);
         membersService.join(members);
 
         //when
@@ -59,7 +60,7 @@ public class MembersRepositoryTest {
     @Rollback(value = false)
     public void deleteMember() {
         //given
-        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", "w");
+        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN);
         membersService.join(members);
         membersRepository.save(members);
 

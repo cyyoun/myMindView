@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,44 +7,39 @@
 </head>
 <body>
     <h1>회원 가입</h1>
-    <form method="post" action="http://localhost/mem/add">
+    <form method="post" action="/mem/add" th:action="@{/mem/add}" th:object="${members}">
         <p>
-            <label for="accnt_id">아이디 : </label>
-            <input id="accnt_id" type="text" name="accnt_id"> <button>중복 확인</button>
+            <label for="accntId">아이디 : </label>
+            <input id="accntId" type="text" th:field="*{accntId}">
+            <button>중복 확인</button>
         </p>    
         <p>
-            <label for="accnt_pw">비밀번호 : </label>
-            <input id="accnt_pw" type="password" name="accnt_pw">
+            <label for="accntPw">비밀번호 : </label>
+            <input id="accntPw" type="password"  th:field="*{accntPw}">
         </p>
         <p>
             <label for="chk_pw">비밀번호 확인 : </label>
-            <input if="pwChk" type="password">
+            <input id="chk_pw" type="password" >
         </p>
         <p>
             <label for="name">이름 : </label>
-            <input if="name" type="text" name="name">
+            <input id="name" type="text" th:field="*{name}">
         </p>
         <p>
             <label for="birth">생년월일 : </label>
-            <input if="birth" type="text" name="birth">
+            <input id="birth" type="text" th:field="*{birth}">
         </p>
-        <p>성별 : 
-            <p>
-            <label for="gender_m">남자 </label>
-            <input id="gender_m" type="radio" name="gender" value="m">
-
-            <label for="gender_w">여자 </label> 
-            <input id="gender_w" type="radio" name="gender" value="w">
-
-            <label for="gender_n">선택 안함 </label> 
-            <input id="gender_n" type="radio" name="gender" value="n">
-            </p>
+        <p>성별 :
+            <th:block th:each="type : ${genderTypes}">
+                <label th:text="${type.gender}" th:for="${#ids.next('gender')}"></label>
+                <input type="radio" th:field="*{gender}" th:value="${type.name()}">
+            </th:block>
         </p>
         <p>
             <label for="phone">휴대전화번호 : </label>
-            <input id="phone" type="text" name="phone"> </p>
+            <input id="phone" type="text" th:field=*{phone}> </p>
         
-        <button type="submit">가입 하기</button>
+        <button type="submit">가입하기</button>
     </form>
     <button type="button" onclick="location.href='login.html'">취소</button>
 
