@@ -49,7 +49,7 @@ public class MembersRepositoryTest {
 
         //when
         String phoneNum = "010-1234-1234";
-        String findMemberId = membersRepository.findId(phoneNum);
+        String findMemberId = membersRepository.findIdByPhone(phoneNum);
 
         //then
         assertThat(findMemberId).isEqualTo(members.getAccntId());

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,9 +23,16 @@ public class MembersRepository {
         em.persist(members);
     }
 
-    public String findId(String phone) {
+    public String findIdByPhone(String phone) {
         return em.createQuery("select m from Members m where m.phone = :phone", Members.class)
                 .setParameter("phone", phone).getSingleResult().getAccntId();
+    }
+
+    public Optional<Members> findMemberById(String accntId) {
+        List<Members> membersList = em.createQuery("select m from Members m where accntId = :accntId", Members.class)
+                .setParameter("accntId", accntId)
+                .getResultList();
+        return membersList.stream().findAny();
     }
 
     public void delete(Members members) {

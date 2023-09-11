@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mmview 로그인</title>
 </head>
 <body>
     <h1>로그인</h1>
-    <form method="post" action="http://localhost/login">
+    <form method="post" action="http://localhost/login" th:action="@{/login}" th:object="${members}">
         <p>
-            <label for="accnt_id">아이디 : </label>
-            <input id="accnt_id" type="text" placeholder="아이디를 입력해주세요." name="accnt_id">
+            <label for="accntId">아이디 : </label>
+            <input id="accntId" type="text" placeholder="아이디를 입력해주세요." th:field="*{accntId}">
         </p>
         <p>
-            <label for="accnt_pw">비밀번호 : </label>
-            <input id="accnt_pw" type="password" placeholder="비밀번호를 입력해주세요." name="accnt_pw">
+            <label for="accntPw">비밀번호 : </label>
+            <input id="accntPw" type="password" placeholder="비밀번호를 입력해주세요." th:field="*{accntPw}">
         </p>
         <!-- <button type="submit" onclick="location.href='../posts/posts.html'">로그인</button> -->
         <button type="submit">로그인</button>
     </form>
-    <p><a href="addMem.html">회원 가입</a></p>
-    <p><a href="findAccnt/find.html">아이디/비밀번호 찾기</a></p>
+    <p><a href="addMem.html" th:href="@{/mem/add}">회원 가입</a></p>
+    <p><a href="findAccnt/find.html" th:href="@{/mem/find}">아이디/비밀번호 찾기</a></p>
     
 </body>
 </html>

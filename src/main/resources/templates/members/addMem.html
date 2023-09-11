@@ -38,10 +38,10 @@
         <p>
             <label for="phone">휴대전화번호 : </label>
             <input id="phone" type="text" th:field=*{phone}> </p>
-        
+
         <button type="submit">가입하기</button>
     </form>
-    <button type="button" onclick="location.href='login.html'">취소</button>
+    <button type="button" onclick="location.href='login.html'" th:onclick="|location.href='@{/login}'|">취소</button>
 
 </body>
 </html>

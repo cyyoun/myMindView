@@ -1,5 +1,6 @@
 package cyng.mmview.domain;
 
+import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Data
 public class Posts {
     @Id @GeneratedValue
     @Column(name = "post_id")
