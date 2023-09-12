@@ -11,6 +11,9 @@ spring:
       filter:
         enabled: true
 
+  messages:
+    basename: messages, errors
+
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect

@@ -4,44 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 가입</title>
+    <style>
+        .fieldError {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+
+
 </head>
 <body>
     <h1>회원 가입</h1>
     <form method="post" action="/mem/add" th:action="@{/mem/add}" th:object="${members}">
         <p>
             <label for="accntId">아이디 : </label>
-            <input id="accntId" type="text" th:field="*{accntId}">
-            <button>중복 확인</button>
-        </p>    
+            <input id="accntId" type="text" th:field="*{accntId}" th:errorclass="fieldError">
+            <button type="button" id="overlapId">중복 확인</button>
+            <div id="overlapMsg"></div>
+            <div class="fieldError" th:errors="*{accntId}">아이디 입력 오류</div>
+        </p>
         <p>
             <label for="accntPw">비밀번호 : </label>
-            <input id="accntPw" type="password"  th:field="*{accntPw}">
+            <input id="accntPw" type="password" th:field="*{accntPw}" th:errorclass="fieldError">
+            <div class="fieldError" th:errors="*{accntPw}">비밀번호 입력 오류</div>
         </p>
         <p>
             <label for="chk_pw">비밀번호 확인 : </label>
-            <input id="chk_pw" type="password" >
+            <input id="chk_pw" type="password" onchange="chkPassword()">
+            <div id="pwChkResult"></div>
         </p>
         <p>
             <label for="name">이름 : </label>
-            <input id="name" type="text" th:field="*{name}">
+            <input id="name" type="text" th:field="*{name}" th:errorclass="fieldError">
+            <div class="fieldError" th:errors="*{name}">이름 입력 오류</div>
         </p>
         <p>
             <label for="birth">생년월일 : </label>
-            <input id="birth" type="text" th:field="*{birth}">
+            <input id="birth" type="text" th:field="*{birth}" th:errorclass="fieldError">
+            <div class="fieldError" th:errors="*{birth}">생년월일 입력 오류</div>
         </p>
         <p>성별 :
             <th:block th:each="type : ${genderTypes}">
                 <label th:text="${type.gender}" th:for="${#ids.next('gender')}"></label>
-                <input type="radio" th:field="*{gender}" th:value="${type.name()}">
+                <input type="radio" th:field="*{gender}" th:value="${type.name()}" class="genderTypes">
             </th:block>
         </p>
+        <div class="fieldError" th:errors="*{gender}">성별 입력 오류</div>
         <p>
             <label for="phone">휴대전화번호 : </label>
-            <input id="phone" type="text" th:field=*{phone}> </p>
-
-        <button type="submit">가입하기</button>
+            <input id="phone" type="text" th:field=*{phone} th:errorclass="fieldError">
+            <div class="fieldError" th:errors="*{phone}">핸드폰 번호 입력 오류</div>
+        </p>
+        <p>
+            <button id="join" type="submit">가입하기</button>
+            <button type="button" onclick="location.href='login.html'" th:onclick="|location.href='@{/login}'|">취소</button>
+        </p>
     </form>
-    <button type="button" onclick="location.href='login.html'" th:onclick="|location.href='@{/login}'|">취소</button>
 
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+    <!--비밀번호 확인-->
+        function chkPassword() {
+            var pw = document.getElementById('accntPw').value;
+            var chkPw = document.getElementById('chk_pw').value;
+
+            if (pw != chkPw) {
+                document.getElementById("pwChkResult").innerText = "비밀번호가 일치하지 않습니다.";
+                document.getElementById("pwChkResult").style.color = "#dc3545";
+                $("#join").attr("type", "button");
+
+            } else {
+                document.getElementById("pwChkResult").innerText = "비밀번호가 일치합니다.";
+                document.getElementById("pwChkResult").style.color = "#1E90FF";
+                $("#join").attr("type", "submit");
+            }
+        }
+
+        <!--아이디 중복 확인-->
+       $("button[id='overlapId']").click(function() {
+            var accntId = $("#accntId").val();
+            $.ajax({
+                type: "get",
+                async: false,
+                url: "http://localhost:8080/mem/idChk",
+                data: {accntId: accntId},
+                success: function (data) {
+                    <!--중복 아이디 존재-->
+                    if (data == true) {
+                        $("#overlapMsg").text("이미 사용중인 ID 입니다.").css("color", "#dc3545");
+                        $("#join").attr("type", "button");
+                    } else {
+                        $("#overlapMsg").text("사용 가능한 ID 입니다.").css("color", "#1E90FF");
+                        $("#join").attr("type", "submit");
+
+                    }
+                }
+            });
+       });
+    </script>
 </body>
 </html>

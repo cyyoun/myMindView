@@ -38,4 +38,9 @@ public class MembersRepository {
     public void delete(Members members) {
         em.remove(members);
     }
+
+    public List<Members> allMembers() {
+        return em.createQuery("select m from Members m", Members.class)
+                .getResultList();
+    }
 }
