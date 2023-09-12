@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>글 작성하기</title>
+    <style>
+        .fieldError {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
     <h1>글 작성하기</h1>
-    
+
     <form method="post" action="http://localhost/mem/addPost" th:action="@{/post/add}" th:object="${posts}">
         <p>
-            <input type="text" placeholder="제목을 입력해주세요." th:field="*{header}">
+            <input type="text" placeholder="제목을 입력해주세요." th:errorclass="fieldError" th:field="*{header}">
+            <div class="fieldError" th:errors="*{header}">제목 오류</div>
         </p>
         <p>
-            <textarea placeholder="내용을 입력해주세요." rows="20" th:field="*{content}"></textarea>
-        </p>        
+            <textarea placeholder="내용을 입력해주세요." rows="20" th:field="*{content}" th:errorclass="fieldError"></textarea>
+            <div class="fieldError" th:errors="*{content}">내용 오류</div>
+        </p>
         <p>
             <button type="submit">완료</button>
             <button type="button" onclick="location.href='posts.html'" th:onclick="|location.href='@{/post/posts}'|">취소</button>

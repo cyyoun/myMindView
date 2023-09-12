@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,11 @@ public class Posts {
     @Id @GeneratedValue
     @Column(name = "post_id")
     private long id;
+
+    @NotBlank(message = "제목을 입력해 주세요.")
     private String header;
+
+    @NotBlank(message = "내용을 입력해 주세요.")
     private String content;
 
     @CreationTimestamp

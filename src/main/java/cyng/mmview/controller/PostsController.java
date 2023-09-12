@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,7 +41,11 @@ public class PostsController {
     }
 
     @PostMapping("/add")
-    public String addPost(@ModelAttribute Posts posts, RedirectAttributes redirect) {
+    public String addPost(@Validated @ModelAttribute Posts posts, BindingResult bindingResult, RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+            return "posts/addPost";
+        }
+
         postsService.addPost(posts);
         redirect.addAttribute("post", posts.getId());
         return "redirect:/post";
@@ -70,7 +76,11 @@ public class PostsController {
     }
 
     @PostMapping("/edit")
-    public String editPost(@RequestParam("post") long postsId, @ModelAttribute Posts posts, RedirectAttributes redirect) {
+    public String editPost(@Validated @ModelAttribute Posts posts, BindingResult bindingResult, Model model,
+                           @RequestParam("post") long postsId, RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+            return "posts/editPost";
+        }
         postsService.editPosts(postsId, posts);
         redirect.addAttribute("post", postsId);
         return "redirect:/post";
