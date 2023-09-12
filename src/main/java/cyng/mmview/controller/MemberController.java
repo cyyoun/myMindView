@@ -27,10 +27,7 @@ public class MemberController {
     @PostMapping("/add")
     public String join(@ModelAttribute Members members, Model model) {
         model.addAttribute("genderTypes", Gender.values());
-        System.out.println(members.getAccntId());
-        System.out.println(members.getAccntPw());
         membersService.join(members);
-
         return "members/login";
     }
 }

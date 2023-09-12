@@ -10,16 +10,15 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class MembersService {
 
     private final MembersRepository membersRepository;
 
-    @Transactional
-    public void join(Members member) {
-        membersRepository.save(member);
+    public void join(Members members) {
+        membersRepository.save(members);
     }
 
-    @Transactional
     public Members chkAccount(String accntId, String accntPw) {
         return membersRepository.findMemberById(accntId)
                 .filter(m -> m.getAccntPw().equals(accntPw))
