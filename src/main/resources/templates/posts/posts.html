@@ -1,46 +1,55 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
 </head>
-
 <body>
-    <h1>게시판</h1>
+<h1>게시판</h1>
+<p>
+    <button type="button" onclick="location.href='../members/login.html'"
+            th:onclick="|location.href='@{/login}|">로그아웃
+    </button>
+    <!--(+-)마이페이지 보류-->
+    <button type="button" onclick="location.href=''">마이페이지</button>
+</p>
+<form method="get" action="http://localhost/posts">
     <p>
-        <button type="button" onclick="location.href='../members/login.html'">로그아웃</button>
-        <button type="button" onclick="location.href=''">마이페이지</button>        
+        <label for="search"> 조회 : </label>
+        <input type="text" id="search" name="search">
+        <button type="submit">검색</button>
     </p>
-    <form method="get" action="http://localhost/posts">
-        <p>
-            <label for="search"> 조회 : </label>
-            <input type="text" id="search" name="search">
-            <button type="submit">검색</button>
-        </p>
-        <p><button type="button" onclick="location.href='addPost.html'">글 작성</button></p>
-    </form>
-    
     <p>
-        <table>
-            <tr>
-                <th>날짜</th>                
-                <th>제목</th>
-                <th>글쓴이</th>
-                <th>조회</th>
-                <th>좋아요</th>
-            </tr>
-            <tr>
-                <td>2023-08-02</td>
-                <td><a href="post.html">테스트 성공적</a></td>
-                <td>cyy</td>
-                <td>1004</td>
-                <td>334</td>
-            </tr>
-        </table>
+        <button type="button" onclick="location.href='addPost.html'"
+                th:onclick="|location.href='@{/post/add}'|">글 작성
+        </button>
     </p>
-    <!--페이징-->
-    
+</form>
+
+<table>
+    <tr>
+        <th>날짜</th>
+        <th>제목</th>
+        <th>글쓴이</th>
+        <th>조회</th>
+        <th>좋아요</th>
+    </tr>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.createdDate}">2023-08-02</td>
+        <td><a href="post.html" th:href="@{/post(post=${post.id})}" th:text="${post.header}">테스트 성공적</a></td>
+        <td th:text="${post.hits}">1004</td>
+        <td th:text="${post.likely}">334</td>
+    </tr>
+</table>
+
+<!--페이징-->
+<a th:if="${startPage gt 1}" th:href="@{/post/posts(page=${startPage-2})}">이전</a>
+<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+    <a th:href="@{/post/posts(page=${page-1})}" th:text="${page}"></a>
+</th:block>
+<a th:if="${endPage lt lastPage}" th:href="@{/post/posts(page=${endPage})}">다음</a>
+
+
 </body>
 </html>

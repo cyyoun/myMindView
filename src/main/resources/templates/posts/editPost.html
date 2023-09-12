@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>글 수정하기</title>
+</head>
+<body>
+  <h1>글 수정하기</h1>
+  <!--action 값이 지정되지 않으면 현재 페이지에 값을 줘서 리로드하게 됨-->
+  <form method="post" th:action th:object="${posts}" >
+    <p>
+      <input type="text" placeholder="제목을 입력해주세요." th:field="*{header}" >
+    </p>
+    <p>
+      <textarea placeholder="내용을 입력해주세요." rows="20" th:field="*{content}" ></textarea>
+    </p>
+    <p>
+      <button type="submit">완료</button>
+      <button type="button" onclick="history.back();">취소</button>
+    </p>
+  </form>
+</body>
+</html>

@@ -10,17 +10,26 @@
     <!--저장된 제목 및 내용-->
     <table>
         <tr>
-            <td>테스트 성공적</td>
-            <td>조회 178</td>            
+            <td th:text="${posts.header}">테스트 성공적</td>
+            <td th:text="|조회 ${posts.hits}|">조회 178</td>
         </tr>
-            <td>cyy</td>            
-            <td>2023.09.10 17:30</td>
+<!--                <td th:text="${acctId}">cyy</td>
+                (+)사용자 연동 필요함-->
+        <td>cyy</td>
+            <td th:text="${posts.createdDate}">2023.09.10 17:30</td>
         <tr>
 
         </tr>
-    </table>        
-
-    <p><textarea id="content" rows="20" disabled>hihi</textarea></p>
+    </table>
+    <form th:action="@{/post/del(post=${posts.id})}" method="post">
+        <p>
+            <input type="hidden" value="delete" name="_method"/>
+            <button type="submit">글 삭제</button>
+            <button type="button" onclick="location.href='posts.html'"
+                    th:onclick="|location.href='@{/post/edit(post=${posts.id})}'|">글 수정</button>
+        </p>
+    </form>
+    <p><textarea id="content" rows="20" disabled th:text="${posts.content}">hihi</textarea></p>
 
     <!--좋아요-->
     <p>
@@ -34,8 +43,11 @@
         <p>
             <div>
                 <div><input type="text" value="cyy" disabled></div>
-                <div><textarea placeholder="욕설 및 악플은 삭제될 수 있습니다."></textarea></div>
-                <button type="submit">등록</button>
+                <div>
+                    <textarea placeholder="욕설 및 악플은 삭제될 수 있습니다."></textarea>
+                    <button type="submit">등록</button>
+                </div>
+
             </div>
         </p>
        
@@ -57,9 +69,8 @@
     </ul>
     
     <p>
-        <button type="button" onclick="location.href='addPost.html'">글 작성</button>
-        <button type="button" onclick="location.href='posts.html'">목록</button>
-        <button type="button" onclick="location.href='posts.html'">글 삭제</button>
+        <button type="button" onclick="location.href='addPost.html'" th:onclick="|location.href='@{/post/add}'|">글 작성</button>
+        <button type="button" onclick="location.href='posts.html'" th:onclick="|location.href='@{/post/posts}'|">글 목록</button>
     </p>
 </body>
 </html>
