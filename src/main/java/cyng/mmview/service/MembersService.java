@@ -3,6 +3,7 @@ package cyng.mmview.service;
 import cyng.mmview.domain.Members;
 import cyng.mmview.repository.MembersRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class MembersService {
 
     private final MembersRepository membersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void join(Members members) {
+        members.setAccntPw(passwordEncoder.encode(members.getAccntPw()));
         membersRepository.save(members);
     }
-
-    public Members chkMembers(String accntId, String accntPw) {
-        return membersRepository.findMemberById(accntId)
-                .filter(m -> m.getAccntPw().equals(accntPw))
+    public Members chkMembers(Members members) {
+        Members chkMembers = membersRepository.findMemberById(members.getAccntId())
+                .filter(m -> !passwordEncoder.matches(members.getAccntPw(), m.getAccntPw()))
                 .orElse(null);
+
+        return chkMembers;
     }
 
     public Members getMembers(String accntId) {

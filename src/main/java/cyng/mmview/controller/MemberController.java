@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/mem")
 @AllArgsConstructor
 @Controller
+@CrossOrigin(origins = "http://localhost:8080", exposedHeaders = "Authorization")
 public class MemberController {
     private final MembersService membersService;
 

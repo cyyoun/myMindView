@@ -24,7 +24,7 @@ public class Members {
     private String accntId;
 
     @Column(name="accnt_pw")
-    @Length(min = 8, max = 20, message = "비밀번호는 8글자 이상 20글자 이하로 입력해 주세요.")
+//    @Length(min = 8, max = 20, message = "비밀번호는 8글자 이상 20글자 이하로 입력해 주세요.")
     private String accntPw;
 
     @NotBlank(message = "이름을 입력해 주세요.")

@@ -29,10 +29,9 @@ public class MembersRepository {
     }
 
     public Optional<Members> findMemberById(String accntId) {
-        List<Members> membersList = em.createQuery("select m from Members m where accntId = :accntId", Members.class)
+     return em.createQuery("select m from Members m where accntId = :accntId", Members.class)
                 .setParameter("accntId", accntId)
-                .getResultList();
-        return membersList.stream().findAny();
+                .getResultList().stream().findAny();
     }
 
     public void delete(Members members) {
