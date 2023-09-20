@@ -30,31 +30,5 @@
     <p><a href="findAccnt/find.html" th:href="@{/mem/find}">아이디/비밀번호 찾기</a></p>
     
 </body>
-<!--<script th:inline="javascript">
-    const token = [[${token}]];
-    const apiUrl = 'http://localhost:8080/mem/posts'; /*[[${apiUrl}]]*/
-    const requestOption = {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ${token}',
-            'Content-Type': 'application/json'
-        }
-    };
 
-    fetch(apiUrl, requestOption)
-    console.log(response.ok);
-        .then(response => {
-            if(!response.ok) {
-                console.error('response 에러: ', error);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('에러: ', error);
-        })
-
-</script>-->
 </html>

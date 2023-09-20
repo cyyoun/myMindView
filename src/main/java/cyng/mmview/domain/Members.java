@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Members {
     @Length(min = 8, max = 20, message = "아이디는 8글자 이상 20글자 이하로 입력해 주세요.")
     private String accntId;
 
-    @Column(name="accnt_pw")
+    @Column(name="accnt_pw", length = 300)
 //    @Length(min = 8, max = 20, message = "비밀번호는 8글자 이상 20글자 이하로 입력해 주세요.")
     private String accntPw;
 
@@ -42,15 +43,25 @@ public class Members {
     @OneToMany(mappedBy = "members")
     private List<Posts> posts = new ArrayList<>();
 
+    private String roles;
+
     public Members() {
     }
 
-    public Members(String accntId, String accntPw, String name, String phone, String birth, Gender gender) {
+    public Members(String accntId, String accntPw, String name, String phone, String birth, Gender gender, String roles) {
         this.accntId = accntId;
         this.accntPw = accntPw;
         this.name = name;
         this.phone = phone;
         this.birth = birth;
         this.gender = gender;
+        this.roles = roles;
+    }
+
+    public List<String> getRoleList() {
+        if (this.roles.length() > 0) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
     }
 }

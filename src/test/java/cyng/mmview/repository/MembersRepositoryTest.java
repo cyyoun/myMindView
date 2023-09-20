@@ -29,7 +29,7 @@ public class MembersRepositoryTest {
     @Rollback(value = false)
     public void newMemberSave() {
         //given
-        Members members = new Members("cyyoun123", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN);
+        Members members = new Members("cyyoun123", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN, "user");
 
         //when
         membersService.join(members);
@@ -44,7 +44,7 @@ public class MembersRepositoryTest {
     @Rollback(value = false)
     public void findId() {
         //given
-        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN);
+        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN, "user");
         membersService.join(members);
 
         //when
@@ -60,7 +60,7 @@ public class MembersRepositoryTest {
     @Rollback(value = false)
     public void deleteMember() {
         //given
-        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN);
+        Members members = new Members("cyyoun", "1234", "cyy", "010-1234-1234", "1234-12-08", Gender.WOMAN, "user");
         membersService.join(members);
         membersRepository.save(members);
 

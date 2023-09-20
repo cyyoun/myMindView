@@ -27,7 +27,8 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug
+    root: debug
+#    org.hibernate.SQL: debug
 
 jwt:
   secret:

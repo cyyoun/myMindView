@@ -3,14 +3,12 @@ package cyng.mmview.security.jwt;
 import cyng.mmview.domain.Members;
 import cyng.mmview.repository.MembersRepository;
 import cyng.mmview.security.auth.MembersDetails;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //BasicAuthenticationFilter : 권한이나 인증이 필요한 특정 주소를 요청했을 때 거치고, 그 외에는 거치지 않는 시큐리티 필터 중 하나
-//@RequiredArgsConstructor
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private final MembersRepository membersRepository;
@@ -36,7 +33,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         System.out.println("====================JwtAuthorizationFilter.doFilterInternal====================");
 
         String serlvetPath = request.getServletPath();
-        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+
         System.out.println("serlvetPath = " + serlvetPath);
         System.out.println("header = " + header);
 
@@ -50,38 +48,22 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         /**
          * jwt 토큰을 검증해서 권한이 맞는지 확인
          */
-        String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION).replace("Bearer ", "");
-        System.out.println("jwtToken = " + jwtToken);
+        String token = header.replace("Bearer ", "");
 
-        try {
-            String accntId = jwtUtils.getAccount(jwtToken);
-            System.out.println("accntId = " + accntId);
+        String accntId =jwtUtils.getAccount(token);
 
+        if (accntId != null) {
+            Members members = membersRepository.findMemberById(accntId).orElse(null);
 
-            if (accntId != null) {
-                System.out.println("서명이 정상적으로 되었습니다. Authentication 생성을 위해 accntId 조회 후 principalDetails 객체로 감싸겠습니다~!!!");
+            if (members != null) {
+                MembersDetails membersDetails = new MembersDetails(members);
 
-                Members members = membersRepository.findMemberById(accntId).orElse(null);
-                if (members != null) {
-                    MembersDetails membersDetails = new MembersDetails(members);
-                    System.out.println("membersDetails = " + membersDetails);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(
+                        membersDetails.getUsername(), "", membersDetails.getAuthorities());
 
-                    System.out.println("Authentication 객체 생성");
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(membersDetails.getMembers().getAccntId(), null);
-                    System.out.println("membersDetails.getMembers().getId() = " + membersDetails.getMembers().getAccntId());
-                    System.out.println("authentication = " + authentication);
-
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    System.out.println("시큐리티 세션에 접근하여 Authentication 객제 저장");
-
-                } else {
-                    System.out.println(" 예외 발생 ");
-                }
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
         filterChain.doFilter(request, response);
     }
 }

@@ -17,14 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/post")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:8080", exposedHeaders = "Authorization")
 public class PostsController {
     private final PostsService postsService;
 
-    @ResponseBody
     @GetMapping("/posts")
     public String postsForm(Model model, @PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        System.out.println("====================PostsController.postsForm====================");
+        System.out.println("----------------------------PostsController.postsForm----------------------------");
         Page<Posts> posts = postsService.allPosts(pageable);
         int page = pageable.getPageNumber();
         int startPage = page / 5 * 5 + 1;

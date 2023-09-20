@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +19,7 @@ public class MembersDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Members members = membersRepository.findMemberById(username).orElseThrow(
-                () -> new UsernameNotFoundException("Invalid authentication!")
-        );
-        System.out.println("MembersDetailsService.loadUserByUsername > = < !");
+        Members members = membersRepository.findMemberById(username).orElse(null);
         return new MembersDetails(members);
     }
 }
