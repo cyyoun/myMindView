@@ -44,9 +44,9 @@ public class SecurityConfig {
                 .apply(new MyCustom())
                 .and()
                 .authorizeRequests() // 조건별로 요청 허용/제한 설정
+                .antMatchers("post/**").authenticated()
                 .anyRequest().permitAll()
-                .and()
-                .build();
+                .and().build();
     }
     public class MyCustom extends AbstractHttpConfigurer<MyCustom, HttpSecurity> {
         @Override
