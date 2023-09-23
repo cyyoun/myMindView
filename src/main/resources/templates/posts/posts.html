@@ -1,55 +1,122 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
+    <link rel="stylesheet" href="../../static/input.css" th:href="@{/input.css}">
+    <link rel="stylesheet" href="../../static/button.css" th:href="@{/button.css}">
+    <link rel="stylesheet" href="../../static/bar.css" th:href="@{/bar.css}">
+
+    <style>
+        .container {
+            font-family: arial;
+            width: 800px;
+            height: 750px;
+            outline: solid 1px gainsboro;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 7vh;
+            padding-top: 2%;
+            text-align: center;
+        }
+
+        td, th {
+            padding: 0.5em .1em;
+            vertical-align: middle;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+            height: 5%;
+            background-color: #d2deda;
+            border-collapse: collapse;
+            border-radius: 10px;
+            border-style: hidden;
+        }
+
+        .t-one {
+            width: 9%;
+        }
+
+        .t-two {
+            width: 58%;
+        }
+
+        .t-three {
+            width: 15%;
+        }
+
+        #bar-menu {
+            color: white;
+            font-weight: bold;
+            padding-right: 20px;
+        }
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+            width: 150px;
+            height: 50px;
+            background: #a9c585;
+            font-size: medium;
+            position: fixed;
+        }
+    </style>
 </head>
+
+
 <body>
-<h1>게시판</h1>
-<p>
-    <button type="button" onclick="location.href='../members/login.html'"
-            th:onclick="|location.href='@{/login}'|">로그아웃
-    </button>
-    <!--(+-)마이페이지 보류-->
-    <button type="button" onclick="location.href=''">마이페이지</button>
-</p>
-<form method="get" action="http://localhost/posts">
-    <p>
-        <label for="search"> 조회 : </label>
-        <input type="text" id="search" name="search">
-        <button type="submit">검색</button>
-    </p>
-    <p>
-        <button type="button" onclick="location.href='addPost.html'"
-                th:onclick="|location.href='@{/post/add}'|">글 작성
-        </button>
-    </p>
-</form>
 
-<table>
-    <tr>
-        <th>날짜</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>조회</th>
-        <th>좋아요</th>
-    </tr>
-    <tr th:each="post : ${posts}">
-        <td th:text="${post.createdDate}">2023-08-02</td>
-        <td><a href="post.html" th:href="@{/post(post=${post.id})}" th:text="${post.header}">테스트 성공적</a></td>
-        <td th:text="${post.hits}">1004</td>
-        <td th:text="${post.likely}">334</td>
-    </tr>
-</table>
-
-<!--페이징-->
-<a th:if="${startPage gt 1}" th:href="@{/post/posts(page=${startPage-2})}">이전</a>
-<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-    <a th:href="@{/post/posts(page=${page-1})}" th:text="${page}"></a>
-</th:block>
-<a th:if="${endPage lt lastPage}" th:href="@{/post/posts(page=${endPage})}">다음</a>
+    <header>
+        <h1>my mind view</h1>
+        <nav>
+            <span><a id="bar-menu" href="../members/login.html" th:href="|location.href='@{/logout}'|">로그아웃</a></span>
+            <span> <a id="bar-menu" href="location.href=''">마이페이지</a></span>
+        </nav>
+    </header>
 
 
+    <div class="container">
+        <form method="get" action="http://localhost/posts">
+            <p>
+                <label for="search"> 조회 : </label>
+                <input type="text" id="search" name="search">
+                <button type="submit" class="w-btn w-btn-green">검색</button>
+            </p>
+        </form>
+
+        <table>
+            <tr>
+                <th class="t-three">날짜</th>
+                <th class="t-two">제목</th>
+                <th class="t-one">글쓴이</th>
+                <th class="t-one">조회</th>
+                <th class="t-one">좋아요</th>
+            </tr>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.createdDate}">2023-08-02</td>
+                <td><a href="post.html" th:href="@{/post(post=${post.id})}" th:text="${post.header}">테스트 성공적</a></td>
+                <td th:text="${post.hits}">1004</td>
+                <td th:text="${post.likely}">334</td>
+            </tr>
+        </table>
+
+        <div style="vertical-align: bottom;">
+            <!--페이징-->
+            <a th:if="${startPage gt 1}" th:href="@{/post/posts(page=${startPage-2})}">이전</a>
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a th:href="@{/post/posts(page=${page-1})}" th:text="${page}"></a>
+            </th:block>
+            <a th:if="${endPage lt lastPage}" th:href="@{/post/posts(page=${endPage})}">다음</a>
+        </div>
+
+    </div>
+
+    <button type="button" onclick="location.href='addPost.html'" class="w-btn w-btn-green bottom-right"
+        th:onclick="|location.href='@{/post/add}'|">글 작성하기 </button>
 </body>
+
 </html>
