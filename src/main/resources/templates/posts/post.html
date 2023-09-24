@@ -31,6 +31,8 @@
 
         #header {
             font-size: x-large;
+            text-align: left;
+            font-weight: 700;
         }
 
         table {
@@ -49,14 +51,13 @@
         }
 
         .relative-but {
-            bottom: 10px;
+            bottom: 80px;
             right: 10px;
             width: 150px;
             height: 50px;
             background: #a9c585;
             font-size: medium;
             position: fixed;
-            margin-right: 200px;
         }
 
         #content {
@@ -116,7 +117,7 @@
             border: none;
             padding: none; 
             text-align: left;
-            background: url("../../static/img/하트.png") center no-repeat;
+            background: url("/img/하트.png") center no-repeat;
             background-size: 40px;
             width: 50px;
             height: 35px;
@@ -139,8 +140,8 @@
     <header>
         <h1>my mind view</h1>
         <nav>
-            <span><a id="bar-menu" href="|location.href='@{/logout}'|">로그아웃</a></span>
-            <span> <a id="bar-menu" href="location.href=''">마이페이지</a></span>
+            <a id="bar-menu" href="|location.href='@{/logout}'|">로그아웃</a>
+            <a id="bar-menu" href="location.href=''">마이페이지</a>
         </nav>
     </header>
 
@@ -148,14 +149,18 @@
         <!--저장된 제목 및 내용-->
         <table>
             <tr>
-                <td rowspan="2" style="width: 70%;">
+                <td rowspan="3" style="width: 70%;">
                     <p><textarea id="content" disabled th:text="${posts.content}">hihi</textarea></p>
                 </td>
-                <td th:text="${posts.header}" style="text-align: left; vertical-align: top; height: 30px;" id="written">
-                    <h3  id="header" style="text-align: left;">테스트 성공적</h3>
-                    <div>작성자 cyy</div>
-                    <div>조회수 178</div>
-                    <div th:text="${posts.createdDate}">2023.09.10 17:30</div>
+                <td th:text="${posts.header}" id="header">
+                    <span>테스트 성공적</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left; vertical-align: top; height: 30px;" id="written">
+                    <span>작성자 cyy</span>
+                    <span style="margin-left: 40px;">조회수 178</span>
+                    <span style="margin-left: 40px;" th:text="${posts.createdDate}">2023.09.10 17:30</span>
                      <form th:action="@{/post/del(post=${posts.id})}" method="post">
                         <span>
                             <input type="hidden" value="delete" name="_method"/>
@@ -204,7 +209,5 @@
             th:onclick="|location.href='@{/post/posts}'|">글 목록</button>
     </p>
 
-
 </body>
-
 </html>
